@@ -1,0 +1,26 @@
+# Exclure le répertoire build/
+build/
+
+# Exclure le fichier build.xml
+build.xml
+
+# Exclure le répertoire nbproject/
+nbproject/
+/dist/
+*.ipr
+*.iml
+*.iws
+*.swp
+*~
+*.output
+*.class
+target/
+.idea
+nbactions.xml
+.classpath
+.DS_Store
+.project
+.settings/
+appserver/appclient/client/acc-config/temp/
+appserver/security/jaspic-provider-framework/auth.conf
+appserver/tests/appserv-tests/devtests/web/JSESSIONID
