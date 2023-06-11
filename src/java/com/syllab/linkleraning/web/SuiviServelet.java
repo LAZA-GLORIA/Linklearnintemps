@@ -30,6 +30,27 @@ public class SuiviServelet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /**
+         *  Initialiser une variable « login » de type chaîne de caractère, avec ce que l'on récupère dans le « request » 
+         * qui est le paramètre qu'on a reçu ici, qui contient toutes les informations de la requête HTTP reçue. 
+         * Donc on récupère le paramètre avec « getParameter ». Ici on spécifie le nom du paramètre attendu. Ici : « qui ». 
+         * Ce paramètre, nous pouvons donc maintenant l'utiliser dans notre page pour afficher l'utilisateur reçu. 
+         * Attention : quand on affiche le contenu d'un paramètre, il faut toujours filtrer le contenu du paramètre. 
+         * En effet, il faut toujours se méfier de ce qui vient du client et ici il peut venir un JavaScript qu'on introduirait sur notre page. 
+         * On parle de faille XSS. Pour éviter ça, on implémente souvent une fonction de nettoyage. 
+         * On en utilise une quand il y a en une de disponible. Ici on n'en a pas directement dans la servlet 
+         * donc on va en faire une rudimentaire qui consiste à avoir enlevé tout caractère qui est « &lt; », « », 
+         * par une expression régulière, « ' », le « "», que j'échappe ici puisque c'est un caractère spécial en chaîne, le « &amp; », 
+         * que j'échappe aussi avec un « \\ » puisque le « \ » est spécifique dans les chaînes, il faut toujours le doubler, en Java. 
+         * Et le « \ » aussi, qui est un caractère spécial, avec un « \\ ». Donc voilà ce « nettoyer », 
+         * que j'ai d'ailleurs appelé « nettoyer », pas « nettoyage ». Il va nous permettre d'avoir un paramètre fiable. 
+         * Quand je reçois ici « anonym », je réutilise bien « anonym » ici, que je reçois en paramètre là. 
+         * Et si jamais j'introduis un « &lt; », cet « &lt; » n'est pas repris dans ma page et donc j'évite les failles XSS. 
+         * On sait maintenant personnaliser une servlet et utiliser dans la servlet les paramètres reçus correctement.
+         * 
+         **/
+        String login = request.getParameter("qui");
+        
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -53,7 +74,7 @@ public class SuiviServelet extends HttpServlet {
                 out.println("<body class='bg-blue-gray'>");
                 out.println("<header>");
                 out.println("<a href='/'><img src='img/logo.png' id='logo' alt='logo'></a>");
-                out.println("<h1>TemPass de slabasse</h1>");
+                out.println("<h1>TemPass de " + nettoyer(login) + "</h1>");
                 out.println("</header>");
                 out.println("<main class='mx-auto w-1/2 py-5 shadow-xl rounded-3xl max-w-2xl'>");
                 out.println("<p>Temps passé sur les projets Linkedin Learning.</p>");
@@ -105,7 +126,7 @@ public class SuiviServelet extends HttpServlet {
                         out.println("Ajouter");
                         out.println("</button>");
                         out.println("</li>");
-                        out.println("</ul>");
+                    out.println("</ul>");
 
                 out.println("</form>");
                 out.println("</main>");
@@ -143,6 +164,12 @@ public class SuiviServelet extends HttpServlet {
                 out.println("</html>"); 
 
         }
+    }
+    
+    private static String nettoyer(String msg) {
+        return msg == null
+                ? null
+                : msg.replace("[<>'\"\\&\\\\]", "");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
