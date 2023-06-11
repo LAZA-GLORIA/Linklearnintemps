@@ -1,0 +1,89 @@
+/* Mise en forme */
+
+*
+{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+h1
+{
+    margin:0;
+    padding: 0.3em 1em;
+}
+
+#logo
+{
+    display:block;
+    width:50px;
+}
+
+.temps
+{
+    float:right;
+    padding: .2em .4em;
+    border-radius: 3px;
+    background-color: #ccc;
+}
+
+#liste li 
+{
+    list-style-type: none;
+    margin: 0.4em 0;    
+    padding: 0.4em;
+    border-radius: 5px;
+    width: 30em;
+}
+
+#liste li:hover
+{
+    background-color: #eee;
+}
+
+input[checked]+.temps
+{
+    background-color:orange;
+}
+
+#logo, h1, header, main, #liste li, #liste label
+{
+    float:left;
+}
+
+header
+{
+    border-bottom: 1px solid #ccc;
+    width:100%;
+}
+
+#liste label
+{
+    width:100%;
+    cursor: pointer;
+}
+
+body {
+    padding-bottom:50px;
+}
+
+footer
+{
+    position: absolute;
+    width:100%;
+    left:0;
+    bottom:0;
+    padding:0 8px;
+    box-sizing: border-box;
+    background-color:white;
+}
+
+footer p
+{
+    width:100%;
+    border-top: 1px solid #ccc;    
+    padding: 1em 0 0;
+}
+
+main, #liste li
+{
+    clear:left;
+}
